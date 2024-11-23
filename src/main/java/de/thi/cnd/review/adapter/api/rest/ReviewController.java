@@ -2,6 +2,7 @@ package de.thi.cnd.review.adapter.api.rest;
 
 import de.thi.cnd.review.adapter.api.rest.dto.CreateReviewRequest;
 import de.thi.cnd.review.adapter.api.rest.dto.ReviewResponse;
+import de.thi.cnd.review.adapter.api.rest.dto.UpdateReviewRequest;
 import de.thi.cnd.review.domain.ReviewService;
 import de.thi.cnd.review.domain.model.Review;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +52,7 @@ public class ReviewController {
     }
 
     @PutMapping("/{id}")
-    public ReviewResponse updateReview(@PathVariable Long id, @RequestBody CreateReviewRequest request) {
+    public ReviewResponse updateReview(@PathVariable Long id, @RequestBody UpdateReviewRequest request) {
         Review r = service.updateReview(id, request.getRecipeId(), request.getAuthor(), request.getRating(), request.getComment());
         return new ReviewResponse(r.getId(), r.getRecipeId(), r.getAuthor(), r.getRating(), r.getComment());
     }
