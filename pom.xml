@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>de.thi.cnd</groupId>
 	<artifactId>review</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>review</name>
 	<description>Review service for &quot;Let him cook!&quot;</description>
 	<url/>
