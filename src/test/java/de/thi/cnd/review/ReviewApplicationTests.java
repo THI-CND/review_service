@@ -5,35 +5,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.thi.cnd.review.adapter.api.rest.dto.CreateReviewRequest;
 import de.thi.cnd.review.adapter.api.rest.dto.UpdateReviewRequest;
 import de.thi.cnd.review.adapter.jpa.ReviewRepository;
-import de.thi.cnd.review.domain.model.Review;
+import de.thi.cnd.review.ports.outgoing.ReviewEvents;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.List;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(
-		webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 class ReviewControllerTests {
 
-	@Autowired
-	private MockMvc mvc;
+	private final MockMvc mvc;
+	private final ReviewRepository reviewRepository;
+
+	@MockBean
+	private ReviewEvents reviewEvents;
 
 	@Autowired
-	private ReviewRepository reviewRepository;
+	public ReviewControllerTests(MockMvc mvc, ReviewRepository reviewRepository) {
+		this.mvc = mvc;
+		this.reviewRepository = reviewRepository;
+	}
 
 	@BeforeEach
 	public void cleanUp() {

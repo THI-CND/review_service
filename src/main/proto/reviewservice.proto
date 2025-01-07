@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package de.thi.cnd.reviewservice;
+
+option java_multiple_files = true;
+option java_package = "de.thi.cnd.review";
+option java_outer_classname = "ReviewProto";
+
+service ReviewService {
+  rpc CreateReview(CreateReviewRequest) returns (ReviewResponse);
+  rpc GetReviews(Empty) returns (ReviewsResponse);
+  rpc GetReview(ReviewIdRequest) returns (ReviewResponse);
+  rpc UpdateReview(UpdateReviewRequest) returns (ReviewResponse);
+  rpc DeleteReview(ReviewIdRequest) returns (Empty);
+}
+
+message Empty {
+}
+
+message ReviewsResponse {
+  repeated ReviewResponse reviews = 1;
+}
+
+message ReviewResponse {
+  int64 id = 1;
+  int64 recipeId = 2;
+  string author = 3;
+  float rating = 4;
+  string comment = 5;
+}
+
+message ReviewIdRequest {
+  int64 id = 1;
+}
+
+message CreateReviewRequest {
+  int64 recipeId = 1;
+  string author = 2;
+  float rating = 3;
+  string comment = 4;
+}
+
+message UpdateReviewRequest {
+  int64 id = 1;
+  int64 recipeId = 2;
+  string author = 3;
+  float rating = 4;
+  string comment = 5;
+}
