@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.9-eclipse-temurin-17 as builder
+FROM --platform=$BUILDPLATFORM maven:3.9.4-eclipse-temurin-17-alpine as builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -12,7 +12,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Stage 2: Create a lightweight image with the application
-FROM eclipse-temurin:17-jre
+FROM --platform=$TARGETPLATFORM eclipse-temurin:17-jre-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
