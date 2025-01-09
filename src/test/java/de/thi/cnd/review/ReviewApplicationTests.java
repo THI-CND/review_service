@@ -46,7 +46,7 @@ class ReviewControllerTests {
 	@Test
 	public void testCreateReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");
@@ -56,7 +56,7 @@ class ReviewControllerTests {
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value(1L))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value("1L"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Max Mustermann"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.rating").value(5.0f))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.comment").value("Sehr lecker!"));
@@ -65,7 +65,7 @@ class ReviewControllerTests {
 	@Test
 	public void testUpdateReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");
@@ -80,7 +80,7 @@ class ReviewControllerTests {
 		long reviewId = jsonNode.get("id").asLong();
 
 		UpdateReviewRequest updatedReview = new UpdateReviewRequest();
-		updatedReview.setRecipeId(1L);
+		updatedReview.setRecipeId("1L");
 		updatedReview.setAuthor("Max Mustermann");
 		updatedReview.setRating(1.0f);
 		updatedReview.setComment("Sehr schlecht!");
@@ -90,7 +90,7 @@ class ReviewControllerTests {
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value(1L))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value("1L"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Max Mustermann"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.rating").value(1.0f))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.comment").value("Sehr schlecht!"));
@@ -99,7 +99,7 @@ class ReviewControllerTests {
 	@Test
 	public void testDeleteReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");

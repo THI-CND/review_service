@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface ReviewRepository extends CrudRepository<ReviewEntity, Long> {
 
-    List<ReviewEntity> findByRecipeId(Long recipeId);
+    List<ReviewEntity> findByRecipeId(String recipeId);
 
 }

@@ -25,7 +25,7 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<ReviewResponse> getReviews(@RequestParam(value = "recipeId", required = false) Long recipeId) {
+    public List<ReviewResponse> getReviews(@RequestParam(value = "recipeId", required = false) String recipeId) {
         if (recipeId != null) {
             List<Review> list = service.getReviewsByRecipeId(recipeId);
             List<ReviewResponse> reviews = new ArrayList<>();

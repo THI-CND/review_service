@@ -10,11 +10,11 @@ public interface ReviewOutputPort {
 
     List<Review> getReviews();
 
-    List<Review> getReviewsByRecipeId(Long recipeId);
+    List<Review> getReviewsByRecipeId(String recipeId);
 
     Review getReviewById(Long reviewId);
 
-    Review updateReview(Long reviewId, Long recipeId, String author, float rating, String comment);
+    Review updateReview(Long reviewId, String recipeId, String author, float rating, String comment);
 
     void deleteReview(Long reviewId);
 

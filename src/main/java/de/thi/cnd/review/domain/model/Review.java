@@ -11,7 +11,7 @@ public class Review {
 
     @Setter(AccessLevel.NONE)
     private Long id;
-    private Long recipeId;
+    private String recipeId;
     private String author;
     private float rating;
     private String comment;

@@ -13,7 +13,7 @@ public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long recipeId;
+    private String recipeId;
     private String author;
     private float rating;
     private String comment;

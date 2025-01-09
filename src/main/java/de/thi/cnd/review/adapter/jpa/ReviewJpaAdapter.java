@@ -43,11 +43,11 @@ public class ReviewJpaAdapter implements ReviewOutputPort {
         if (reviewEntity.isEmpty()) {
             throw new IllegalArgumentException("Review with id " + reviewId + " not found");
         }
-        return reviewEntity.get().toReview();
+        return reviewRepository.findById(reviewId).get().toReview();
     }
 
     @Override
-    public List<Review> getReviewsByRecipeId(Long recipeId) {
+    public List<Review> getReviewsByRecipeId(String recipeId) {
         List<ReviewEntity> reviewEntities = reviewRepository.findByRecipeId(recipeId);
         List<Review> reviews = new ArrayList<>();
         reviewEntities.forEach(el -> reviews.add(el.toReview()));
@@ -55,7 +55,7 @@ public class ReviewJpaAdapter implements ReviewOutputPort {
     }
 
     @Override
-    public Review updateReview(Long reviewId, Long recipeId, String author, float rating, String comment) {
+    public Review updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
         Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
         if (reviewEntity.isEmpty()) {
             throw new IllegalArgumentException("Review with id " + reviewId + " not found");

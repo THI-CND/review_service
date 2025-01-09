@@ -19,7 +19,7 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewEvents events;
 
     @Override
-    public Review createReview(Long recipeId, String author, float rating, String comment) {
+    public Review createReview(String recipeId, String author, float rating, String comment) {
         Review review = new Review();
         review.setRecipeId(recipeId);
         review.setAuthor(author);
@@ -44,12 +44,12 @@ public class ReviewServiceImpl implements ReviewService {
 
 
     @Override
-    public List<Review> getReviewsByRecipeId(Long recipeId) {
+    public List<Review> getReviewsByRecipeId(String recipeId) {
         return reviews.getReviewsByRecipeId(recipeId);
     }
 
     @Override
-    public Review updateReview(Long reviewId, Long recipeId, String author, float rating, String comment) {
+    public Review updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
         return reviews.updateReview(reviewId, recipeId, author, rating, comment);
     }
 
