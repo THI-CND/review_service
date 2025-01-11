@@ -1,6 +1,6 @@
-package de.thi.cnd.review.adapter.jpa;
+package de.thi.cnd.review.adapter.outgoing.jpa;
 
-import de.thi.cnd.review.adapter.jpa.entities.ReviewEntity;
+import de.thi.cnd.review.adapter.outgoing.jpa.entities.ReviewEntity;
 import de.thi.cnd.review.domain.model.Review;
 import de.thi.cnd.review.ports.outgoing.ReviewOutputPort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +38,9 @@ public class ReviewJpaAdapter implements ReviewOutputPort {
     }
 
     @Override
-    public Review getReviewById(Long reviewId) {
+    public Optional<Review>  getReviewById(Long reviewId) {
         Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
-        if (reviewEntity.isEmpty()) {
-            throw new IllegalArgumentException("Review with id " + reviewId + " not found");
-        }
-        return reviewRepository.findById(reviewId).get().toReview();
+        return reviewEntity.map(ReviewEntity::toReview);
     }
 
     @Override
@@ -55,10 +52,10 @@ public class ReviewJpaAdapter implements ReviewOutputPort {
     }
 
     @Override
-    public Review updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
+    public Optional<Review> updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
         Optional<ReviewEntity> reviewEntity = reviewRepository.findById(reviewId);
         if (reviewEntity.isEmpty()) {
-            throw new IllegalArgumentException("Review with id " + reviewId + " not found");
+            return Optional.empty();
         }
         ReviewEntity r = reviewEntity.get();
         r.setRecipeId(recipeId);
@@ -67,7 +64,7 @@ public class ReviewJpaAdapter implements ReviewOutputPort {
         r.setComment(comment);
         reviewRepository.save(r);
 
-        return r.toReview();
+        return Optional.of(r.toReview());
     }
 
     @Override

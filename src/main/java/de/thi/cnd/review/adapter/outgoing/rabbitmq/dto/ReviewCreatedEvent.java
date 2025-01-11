@@ -1,13 +1,11 @@
-package de.thi.cnd.review.adapter.api.rest.dto;
+package de.thi.cnd.review.adapter.outgoing.rabbitmq.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class ReviewResponse {
+public class ReviewCreatedEvent {
 
     private Long id;
     private String recipeId;

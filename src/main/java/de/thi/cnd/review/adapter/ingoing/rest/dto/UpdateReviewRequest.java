@@ -1,4 +1,4 @@
-package de.thi.cnd.review.adapter.api.rest.dto;
+package de.thi.cnd.review.adapter.ingoing.rest.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

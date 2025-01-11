@@ -1,4 +1,4 @@
-package de.thi.cnd.review.adapter.jpa.entities;
+package de.thi.cnd.review.adapter.outgoing.jpa.entities;
 
 import de.thi.cnd.review.domain.model.Review;
 import jakarta.persistence.*;
