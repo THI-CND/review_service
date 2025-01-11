@@ -8,15 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
-    private ReviewOutputPort reviews;
+    private ReviewOutputPort reviewRepository;
 
     @Autowired
-    private ReviewEvents events;
+    private ReviewEvents reviewEvents;
 
     @Override
     public Review createReview(String recipeId, String author, float rating, String comment) {
@@ -26,35 +27,34 @@ public class ReviewServiceImpl implements ReviewService {
         review.setRating(rating);
         review.setComment(comment);
 
-        Review savedReview = reviews.createReview(review);
-        events.reviewCreated(savedReview);
+        Review savedReview = reviewRepository.createReview(review);
+        reviewEvents.reviewCreated(savedReview);
 
         return savedReview;
     }
 
     @Override
     public List<Review> getReviews() {
-        return reviews.getReviews();
+        return reviewRepository.getReviews();
     }
 
     @Override
-    public Review getReviewById(Long reviewId) {
-        return reviews.getReviewById(reviewId);
+    public Optional<Review> getReviewById(Long reviewId) {
+        return reviewRepository.getReviewById(reviewId);
     }
-
 
     @Override
     public List<Review> getReviewsByRecipeId(String recipeId) {
-        return reviews.getReviewsByRecipeId(recipeId);
+        return reviewRepository.getReviewsByRecipeId(recipeId);
     }
 
     @Override
-    public Review updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
-        return reviews.updateReview(reviewId, recipeId, author, rating, comment);
+    public Optional<Review> updateReview(Long reviewId, String recipeId, String author, float rating, String comment) {
+        return reviewRepository.updateReview(reviewId, recipeId, author, rating, comment);
     }
 
     @Override
     public void deleteReview(Long reviewId) {
-        reviews.deleteReview(reviewId);
+        reviewRepository.deleteReview(reviewId);
     }
 }

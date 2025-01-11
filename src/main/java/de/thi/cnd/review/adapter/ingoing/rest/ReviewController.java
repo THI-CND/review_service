@@ -40,7 +40,7 @@ public class ReviewController {
             }
             return reviews;
         } else {
-            List<Review> list = reviewService.getReviewRepository();
+            List<Review> list = reviewService.getReviews();
             List<ReviewResponse> reviews = new ArrayList<>();
 
             for (Review r : list) {
