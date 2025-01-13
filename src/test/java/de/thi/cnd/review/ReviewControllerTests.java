@@ -30,10 +30,6 @@ class ReviewControllerTests {
 	private final MockMvc mvc;
 	private final JpaReviewRepository reviewRepository;
 
-	@MockBean
-	private ReviewEvents reviewEvents;
-
-	@Autowired
 	public ReviewControllerTests(MockMvc mvc, JpaReviewRepository reviewRepository) {
 		this.mvc = mvc;
 		this.reviewRepository = reviewRepository;
