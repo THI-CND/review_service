@@ -1,13 +1,15 @@
-package de.thi.cnd.review.adapter.api.grpc;
+package de.thi.cnd.review.adapter.ingoing.grpc;
 
 import de.thi.cnd.review.domain.ReviewService;
 import de.thi.cnd.review.ReviewServiceGrpc;
 import de.thi.cnd.review.domain.model.Review;
 import de.thi.cnd.review.*;
+import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
 import java.util.List;
+import java.util.Optional;
 
 @GrpcService
 public class ReviewGrpcController extends ReviewServiceGrpc.ReviewServiceImplBase {
@@ -20,7 +22,7 @@ public class ReviewGrpcController extends ReviewServiceGrpc.ReviewServiceImplBas
 
     @Override
     public void getReviews(Empty request, StreamObserver<ReviewsResponse> responseObserver) {
-        List<Review> reviews = reviewService.getReviews();
+        List<Review> reviews = reviewService.getReviews(null);
         ReviewsResponse.Builder responseBuilder = ReviewsResponse.newBuilder();
 
         for (Review review : reviews) {
@@ -41,7 +43,13 @@ public class ReviewGrpcController extends ReviewServiceGrpc.ReviewServiceImplBas
 
     @Override
     public void getReview(ReviewIdRequest request, StreamObserver<ReviewResponse> responseObserver) {
-        Review review = reviewService.getReviewById(request.getId());
+        Optional<Review> optionalReview = reviewService.getReviewById(request.getId());
+        if (optionalReview.isEmpty()) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription("Review not found").asException());
+            return;
+        }
+
+        Review review = optionalReview.get();
         ReviewResponse response = ReviewResponse.newBuilder()
                 .setId(review.getId())
                 .setRecipeId(review.getRecipeId())
@@ -69,7 +77,13 @@ public class ReviewGrpcController extends ReviewServiceGrpc.ReviewServiceImplBas
 
     @Override
     public void updateReview(UpdateReviewRequest request, StreamObserver<ReviewResponse> responseObserver) {
-        Review review = reviewService.updateReview(request.getId(), request.getRecipeId(), request.getAuthor(), request.getRating(), request.getComment());
+        Optional<Review> optionalReview = reviewService.updateReview(request.getId(), request.getRecipeId(), request.getAuthor(), request.getRating(), request.getComment());
+        if (optionalReview.isEmpty()) {
+            responseObserver.onError(Status.NOT_FOUND.withDescription("Review not found").asException());
+            return;
+        }
+
+        Review review = optionalReview.get();
         ReviewResponse response = ReviewResponse.newBuilder()
                 .setId(review.getId())
                 .setRecipeId(review.getRecipeId())

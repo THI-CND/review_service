@@ -1,4 +1,4 @@
-package de.thi.cnd.review.adapter.api.rest.dto;
+package de.thi.cnd.review.adapter.ingoing.rest.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateReviewRequest {
 
-    private Long recipeId;
+    private String recipeId;
     private String author;
     private float rating;
     private String comment;

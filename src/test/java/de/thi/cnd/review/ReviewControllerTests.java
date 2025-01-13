@@ -2,16 +2,14 @@ package de.thi.cnd.review;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.thi.cnd.review.adapter.api.rest.dto.CreateReviewRequest;
-import de.thi.cnd.review.adapter.api.rest.dto.UpdateReviewRequest;
-import de.thi.cnd.review.adapter.jpa.ReviewRepository;
-import de.thi.cnd.review.ports.outgoing.ReviewEvents;
+import de.thi.cnd.review.adapter.ingoing.rest.dto.CreateReviewRequest;
+import de.thi.cnd.review.adapter.ingoing.rest.dto.UpdateReviewRequest;
+import de.thi.cnd.review.adapter.outgoing.jpa.JpaReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
@@ -27,13 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ReviewControllerTests {
 
 	private final MockMvc mvc;
-	private final ReviewRepository reviewRepository;
-
-	@MockBean
-	private ReviewEvents reviewEvents;
+	private final JpaReviewRepository reviewRepository;
 
 	@Autowired
-	public ReviewControllerTests(MockMvc mvc, ReviewRepository reviewRepository) {
+	public ReviewControllerTests(MockMvc mvc, JpaReviewRepository reviewRepository) {
 		this.mvc = mvc;
 		this.reviewRepository = reviewRepository;
 	}
@@ -44,32 +39,32 @@ class ReviewControllerTests {
 	}
 
 	@Test
-	public void testCreateReview() throws Exception {
+	void testCreateReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");
-		mvc.perform(post("/reviews")
+		mvc.perform(post("/api/v1/reviews")
 						.content(asJsonString(review))
 						.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value(1L))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value("1L"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Max Mustermann"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.rating").value(5.0f))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.comment").value("Sehr lecker!"));
 	}
 
 	@Test
-	public void testUpdateReview() throws Exception {
+	void testUpdateReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");
-		MvcResult result = mvc.perform(post("/reviews")
+		MvcResult result = mvc.perform(post("/api/v1/reviews")
 						.content(asJsonString(review))
 						.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON))
@@ -80,30 +75,30 @@ class ReviewControllerTests {
 		long reviewId = jsonNode.get("id").asLong();
 
 		UpdateReviewRequest updatedReview = new UpdateReviewRequest();
-		updatedReview.setRecipeId(1L);
+		updatedReview.setRecipeId("1L");
 		updatedReview.setAuthor("Max Mustermann");
 		updatedReview.setRating(1.0f);
 		updatedReview.setComment("Sehr schlecht!");
-		mvc.perform(put("/reviews/" + reviewId)
+		mvc.perform(put("/api/v1/reviews/" + reviewId)
 						.content(asJsonString(updatedReview))
 						.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk())
 				.andExpect(MockMvcResultMatchers.jsonPath("$.id").exists())
-				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value(1L))
+				.andExpect(MockMvcResultMatchers.jsonPath("$.recipeId").value("1L"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.author").value("Max Mustermann"))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.rating").value(1.0f))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.comment").value("Sehr schlecht!"));
 	}
 
 	@Test
-	public void testDeleteReview() throws Exception {
+	void testDeleteReview() throws Exception {
 		CreateReviewRequest review = new CreateReviewRequest();
-		review.setRecipeId(1L);
+		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
 		review.setComment("Sehr lecker!");
-		MvcResult result = mvc.perform(post("/reviews")
+		MvcResult result = mvc.perform(post("/api/v1/reviews")
 						.content(asJsonString(review))
 						.contentType(MediaType.APPLICATION_JSON)
 						.accept(MediaType.APPLICATION_JSON))
@@ -113,7 +108,7 @@ class ReviewControllerTests {
 		JsonNode jsonNode = new ObjectMapper().readTree(jsonResponse);
 		long reviewId = jsonNode.get("id").asLong();
 
-		mvc.perform(delete("/reviews/" + reviewId))
+		mvc.perform(delete("/api/v1/reviews/" + reviewId))
 				.andExpect(status().isOk());
 	}
 

@@ -1,4 +1,4 @@
-package de.thi.cnd.review.adapter.jpa.entities;
+package de.thi.cnd.review.adapter.outgoing.jpa.entities;
 
 import de.thi.cnd.review.domain.model.Review;
 import jakarta.persistence.*;
@@ -13,7 +13,7 @@ public class ReviewEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long recipeId;
+    private String recipeId;
     private String author;
     private float rating;
     private String comment;
