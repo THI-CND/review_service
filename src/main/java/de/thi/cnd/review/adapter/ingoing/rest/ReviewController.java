@@ -29,6 +29,8 @@ public class ReviewController {
         return new ReviewResponse(review.getId(), review.getRecipeId(), review.getAuthor(), review.getRating(), review.getComment());
     }
 
+    //TODO: Logik in Service schicht
+
     @GetMapping
     public List<ReviewResponse> getReviews(@RequestParam(value = "recipeId", required = false) String recipeId) {
         if (recipeId != null) {
@@ -40,7 +42,7 @@ public class ReviewController {
             }
             return reviews;
         } else {
-            List<Review> list = reviewService.getReviews();
+            List<Review> list = reviewService.getReviews(null);
             List<ReviewResponse> reviews = new ArrayList<>();
 
             for (Review r : list) {

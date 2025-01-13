@@ -9,7 +9,7 @@ public interface ReviewService {
 
     Review createReview(String recipeId, String author, float rating, String comment);
 
-    List<Review> getReviews();
+    List<Review> getReviews(String recipeId);
 
     List<Review> getReviewsByRecipeId(String recipeId);
 

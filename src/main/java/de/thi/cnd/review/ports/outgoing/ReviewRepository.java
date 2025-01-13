@@ -5,11 +5,11 @@ import de.thi.cnd.review.domain.model.Review;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReviewOutputPort {
+public interface ReviewRepository {
 
     Review createReview(Review review);
 
-    List<Review> getReviews();
+    List<Review> getReviews(String recipeId);
 
     List<Review> getReviewsByRecipeId(String recipeId);
 

@@ -22,7 +22,7 @@ public class ReviewGrpcController extends ReviewServiceGrpc.ReviewServiceImplBas
 
     @Override
     public void getReviews(Empty request, StreamObserver<ReviewsResponse> responseObserver) {
-        List<Review> reviews = reviewService.getReviews();
+        List<Review> reviews = reviewService.getReviews(null);
         ReviewsResponse.Builder responseBuilder = ReviewsResponse.newBuilder();
 
         for (Review review : reviews) {

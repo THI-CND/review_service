@@ -4,8 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.thi.cnd.review.adapter.ingoing.rest.dto.CreateReviewRequest;
 import de.thi.cnd.review.adapter.ingoing.rest.dto.UpdateReviewRequest;
-import de.thi.cnd.review.adapter.outgoing.jpa.ReviewRepository;
+import de.thi.cnd.review.adapter.outgoing.jpa.JpaReviewRepository;
 import de.thi.cnd.review.ports.outgoing.ReviewEvents;
+import de.thi.cnd.review.ports.outgoing.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ReviewControllerTests {
 
 	private final MockMvc mvc;
-	private final ReviewRepository reviewRepository;
+	private final JpaReviewRepository reviewRepository;
 
 	@MockBean
 	private ReviewEvents reviewEvents;
 
 	@Autowired
-	public ReviewControllerTests(MockMvc mvc, ReviewRepository reviewRepository) {
+	public ReviewControllerTests(MockMvc mvc, JpaReviewRepository reviewRepository) {
 		this.mvc = mvc;
 		this.reviewRepository = reviewRepository;
 	}

@@ -3,7 +3,7 @@ package de.thi.cnd.review.application;
 import de.thi.cnd.review.domain.ReviewService;
 import de.thi.cnd.review.domain.model.Review;
 import de.thi.cnd.review.ports.outgoing.ReviewEvents;
-import de.thi.cnd.review.ports.outgoing.ReviewOutputPort;
+import de.thi.cnd.review.ports.outgoing.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +13,13 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    @Autowired
-    private ReviewOutputPort reviewRepository;
-
-    @Autowired
+    private ReviewRepository reviewRepository;
     private ReviewEvents reviewEvents;
+
+    public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewEvents reviewEvents) {
+        this.reviewRepository = reviewRepository;
+        this.reviewEvents = reviewEvents;
+    }
 
     @Override
     public Review createReview(String recipeId, String author, float rating, String comment) {
@@ -34,8 +36,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public List<Review> getReviews() {
-        return reviewRepository.getReviews();
+    public List<Review> getReviews(String recipeId) {
+        return reviewRepository.getReviews(recipeId);
     }
 
     @Override
