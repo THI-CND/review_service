@@ -4,7 +4,6 @@ import de.thi.cnd.review.domain.ReviewService;
 import de.thi.cnd.review.domain.model.Review;
 import de.thi.cnd.review.ports.outgoing.ReviewEvents;
 import de.thi.cnd.review.ports.outgoing.ReviewRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private ReviewRepository reviewRepository;
-    private ReviewEvents reviewEvents;
+    private final ReviewRepository reviewRepository;
+    private final ReviewEvents reviewEvents;
 
     public ReviewServiceImpl(ReviewRepository reviewRepository, ReviewEvents reviewEvents) {
         this.reviewRepository = reviewRepository;

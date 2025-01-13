@@ -7,6 +7,7 @@ import de.thi.cnd.review.adapter.ingoing.rest.dto.UpdateReviewRequest;
 import de.thi.cnd.review.adapter.outgoing.jpa.JpaReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -26,6 +27,7 @@ class ReviewControllerTests {
 	private final MockMvc mvc;
 	private final JpaReviewRepository reviewRepository;
 
+	@Autowired
 	public ReviewControllerTests(MockMvc mvc, JpaReviewRepository reviewRepository) {
 		this.mvc = mvc;
 		this.reviewRepository = reviewRepository;

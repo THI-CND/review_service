@@ -9,9 +9,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReviewEventsImpl implements ReviewEvents {
+    
+    private final MessagingService messagingService;
 
-    @Autowired
-    private MessagingService messagingService;
+    public ReviewEventsImpl(MessagingService messagingService) {
+        this.messagingService = messagingService;
+    }
 
     @Value("${app.message.queue.reviews.routing.created}")
     private String routingKeyCreated;
