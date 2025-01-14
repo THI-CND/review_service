@@ -39,6 +39,8 @@ Im `dev`-Profil wird die Datenbank bei jedem Start geleert.
 Das `test`-Profil wird zum Ausführen der Tests verwendet.\
 Es wird eine lokale H2-Datenbank gestartet, die für die Tests verwendet wird.
 
+---
+
 ### Environment Variables
 - `DB_URL`: JDBC-URL der Datenbank
 - `DB_USER`: Benutzername für die Datenbank
