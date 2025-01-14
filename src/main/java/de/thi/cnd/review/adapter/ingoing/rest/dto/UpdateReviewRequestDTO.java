@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class UpdateReviewRequest {
+public class UpdateReviewRequestDTO {
 
     private String recipeId;
     private String author;
