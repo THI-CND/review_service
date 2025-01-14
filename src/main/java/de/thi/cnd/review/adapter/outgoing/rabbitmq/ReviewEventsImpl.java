@@ -43,7 +43,7 @@ public class ReviewEventsImpl implements ReviewEvents {
         try {
             rabbitTemplate.convertAndSend(topicExchange, routingKeyCreated, message);
         } catch (Exception e) {
-            logger.error("Error publishing message", e);
+            logger.error("Error publishing AMQP message", e);
         }
     }
 
