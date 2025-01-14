@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: review
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  reviewservice:
+    image: ghcr.io/thi-cnd/review_service:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/review
+      DB_USER: postgres
+      DB_PASSWORD: password
+      RABBIT_HOST: rabbitmq
+      RABBIT_PORT: 5672
+      RABBIT_USER: guest
+      RABBIT_PASSWORD: guest
+      USER_SERVICE_ADDRESS: localhost:9092 # Without connection to the user service, the review service will not be able to create reviews
+      RABBIT_EXCHANGE: recipemanagement
+    depends_on:
+      - postgres
+      - rabbitmq

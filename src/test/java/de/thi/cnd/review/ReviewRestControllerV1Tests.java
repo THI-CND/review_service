@@ -2,8 +2,8 @@ package de.thi.cnd.review;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.thi.cnd.review.adapter.ingoing.rest.dto.CreateReviewRequest;
-import de.thi.cnd.review.adapter.ingoing.rest.dto.UpdateReviewRequest;
+import de.thi.cnd.review.adapter.ingoing.rest.dto.CreateReviewRequestDTO;
+import de.thi.cnd.review.adapter.ingoing.rest.dto.UpdateReviewRequestDTO;
 import de.thi.cnd.review.adapter.outgoing.jpa.JpaReviewRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,13 +22,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ReviewControllerTests {
+class ReviewRestControllerV1Tests {
 
 	private final MockMvc mvc;
 	private final JpaReviewRepository reviewRepository;
 
 	@Autowired
-	public ReviewControllerTests(MockMvc mvc, JpaReviewRepository reviewRepository) {
+	public ReviewRestControllerV1Tests(MockMvc mvc, JpaReviewRepository reviewRepository) {
 		this.mvc = mvc;
 		this.reviewRepository = reviewRepository;
 	}
@@ -40,7 +40,7 @@ class ReviewControllerTests {
 
 	@Test
 	void testCreateReview() throws Exception {
-		CreateReviewRequest review = new CreateReviewRequest();
+		CreateReviewRequestDTO review = new CreateReviewRequestDTO();
 		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
@@ -59,7 +59,7 @@ class ReviewControllerTests {
 
 	@Test
 	void testUpdateReview() throws Exception {
-		CreateReviewRequest review = new CreateReviewRequest();
+		CreateReviewRequestDTO review = new CreateReviewRequestDTO();
 		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
@@ -74,7 +74,7 @@ class ReviewControllerTests {
 		JsonNode jsonNode = new ObjectMapper().readTree(jsonResponse);
 		long reviewId = jsonNode.get("id").asLong();
 
-		UpdateReviewRequest updatedReview = new UpdateReviewRequest();
+		UpdateReviewRequestDTO updatedReview = new UpdateReviewRequestDTO();
 		updatedReview.setRecipeId("1L");
 		updatedReview.setAuthor("Max Mustermann");
 		updatedReview.setRating(1.0f);
@@ -93,7 +93,7 @@ class ReviewControllerTests {
 
 	@Test
 	void testDeleteReview() throws Exception {
-		CreateReviewRequest review = new CreateReviewRequest();
+		CreateReviewRequestDTO review = new CreateReviewRequestDTO();
 		review.setRecipeId("1L");
 		review.setAuthor("Max Mustermann");
 		review.setRating(5.0f);
