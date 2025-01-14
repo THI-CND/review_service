@@ -1,5 +1,5 @@
 # ReviewService
-Der ReviewService verwaltet Rezensionen für Rezepte.
+Der ReviewService ist eine Spring Boot Anwendung, die Rezensionen für Rezepte verwaltet.
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=THI-CND_review_service&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=THI-CND_review_service)
 
@@ -14,17 +14,29 @@ Das Projekt benötigt die folgenden Abhängigkeiten, um lokal gestartet zu werde
 - Docker Compose
 
 ### Start
-- Projekt bauen:
+- Projekt lokal bauen:
     ```bash
     mvn clean install
     ```
-- Projekt starten:
+- Gebautes Projekt lokal starten:
     ```bash
     java -jar target/reviewservice-<version>.jar
     ```
+#### Docker
+Das Projekt kann auch lokal per Docker gestartet werden.\
+Dazu muss im Projektordner der folgende Befehl ausgeführt werden:
+```bash
+docker compose up
+```
+Neben dem Service wird eine Postgres Datenbank und eine RabbitMQ Message Queue gestartet.
+Erreichbar ist der Service anschließend unter Port 8080 (REST) und 9090 (gRPC).
 
-### Testing
-Die Tests werden mit dem Profil `test` ausgeführt.\
+### Profile
+#### Dev
+Im `dev`-Profil wird die Datenbank bei jedem Start geleert.
+
+#### Test
+Das `test`-Profil wird zum Ausführen der Tests verwendet.\
 Es wird eine lokale H2-Datenbank gestartet, die für die Tests verwendet wird.
 
 ### Environment Variables
@@ -36,6 +48,7 @@ Es wird eine lokale H2-Datenbank gestartet, die für die Tests verwendet wird.
 - `RABBIT_USER`: Benutzername für RabbitMQ
 - `RABBIT_PASSWORD`: Passwort für RabbitMQ
 - `RABBIT_EXCHANGE`: Exchange Name für Veröffentlichung der Events in RabbitMQ
+- `USER_SERVICE_ADDRESS`: Adresse des User-Service
 
 ---
 
