@@ -7,7 +7,7 @@ Der ReviewService ist eine Spring Boot Anwendung, die Rezensionen für Rezepte v
 
 ## Architektur
 
-
+![reviewservice-architecture.png](docs/reviewservice-architecture.png)
 
 ---
 
