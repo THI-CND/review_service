@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ReviewCreatedEvent {
+public class ReviewCreatedEventDTO {
 
     private Long id;
     private String recipeId;

@@ -5,6 +5,12 @@ Der ReviewService ist eine Spring Boot Anwendung, die Rezensionen für Rezepte v
 
 ---
 
+## Architektur
+
+![reviewservice-architecture.png](docs/reviewservice-architecture.png)
+
+---
+
 ## Getting Started
 ### Dependencies
 Das Projekt benötigt die folgenden Abhängigkeiten, um lokal gestartet zu werden:

@@ -1,7 +1,7 @@
 package de.thi.cnd.review.adapter.outgoing.rabbitmq;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.thi.cnd.review.adapter.outgoing.rabbitmq.dto.ReviewCreatedEvent;
+import de.thi.cnd.review.adapter.outgoing.rabbitmq.dto.ReviewCreatedEventDTO;
 import de.thi.cnd.review.domain.model.Review;
 import de.thi.cnd.review.ports.outgoing.ReviewEvents;
 import org.slf4j.Logger;
@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +31,8 @@ public class ReviewEventsImpl implements ReviewEvents {
 
     @Override
     public void reviewCreated(Review review) {
-        ReviewCreatedEvent reviewCreatedEvent = new ReviewCreatedEvent(review.getId(), review.getRecipeId(), review.getAuthor(), review.getRating(), review.getComment());
-        String content = asJsonString(reviewCreatedEvent);
+        ReviewCreatedEventDTO reviewCreatedEventDTO = new ReviewCreatedEventDTO(review.getId(), review.getRecipeId(), review.getAuthor(), review.getRating(), review.getComment());
+        String content = asJsonString(reviewCreatedEventDTO);
 
         MessageProperties messageProperties = new MessageProperties();
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_JSON);
