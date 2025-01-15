@@ -24,7 +24,7 @@ Das Projekt benötigt die folgenden Abhängigkeiten, um lokal gestartet zu werde
     ```bash
     mvn clean install
     ```
-- Gebautes Projekt lokal starten:
+- Gebautes Projekt lokal starten (Environment Variablen (s. u.) müssen gesetzt sein):
     ```bash
     java -jar target/reviewservice-<version>.jar
     ```
@@ -34,7 +34,7 @@ Dazu muss im Projektordner der folgende Befehl ausgeführt werden:
 ```bash
 docker compose up
 ```
-Neben dem Service wird eine Postgres Datenbank und eine RabbitMQ Message Queue gestartet.
+Neben dem Service wird eine Postgres Datenbank und eine RabbitMQ Message Broker gestartet.
 Erreichbar ist der Service anschließend unter Port 8080 (REST) und 9090 (gRPC).
 
 ### Profile
