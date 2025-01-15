@@ -8,7 +8,7 @@ import user.UserServiceGrpc;
 import user.Userservice;
 
 @Service
-public class UserGrpcProvider implements UserProvider {
+public class UserGrpcProviderImpl implements UserProvider {
 
     @GrpcClient("user-service")
     private UserServiceGrpc.UserServiceBlockingStub userServiceStub;
